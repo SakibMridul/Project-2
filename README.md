@@ -8,5 +8,5 @@ Planetery Analyzer
                 
 		The technology and software used here:
 	                 Arduino IDE, C++, LabVIEW, 
-                      Proteus 8 Professional.
+                     Proteus 8 Professional.
  
