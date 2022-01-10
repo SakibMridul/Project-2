@@ -1,0 +1,81 @@
+#include <OneWire.h>
+#include <DallasTemperature.h>
+#include <DS18B20.h>
+#define ONE_WIRE_BUS 2
+
+OneWire oneWire(ONE_WIRE_BUS);
+DS18B20 sensor(&oneWire);
+
+
+
+const int AOUTpin=0;//the AOUT pin of the hydrogen sensor goes into analog pin A0 of the arduino
+const int DOUTpin=8;//the DOUT pin of the hydrogen sensor goes into digital pin D8 of the arduino
+
+float LlimitOfH = 0.01;
+float HlimitOfH = 0.15;
+int value;
+
+
+int msensor = 4; // moisture sensor is connected with digital pin4 of the Arduino
+boolean flag = false;
+
+void setup() {
+
+Serial.begin(9600);
+sensor.begin();  
+
+
+pinMode(DOUTpin, INPUT);//sets the pin as an input to the arduino
+pinMode(msensor, INPUT);
+
+}
+
+void loop(){
+
+//  MQ8
+
+value = analogRead(AOUTpin);//reads the analaog value from the  AOUT pin
+
+Serial.print("Methane value: ");
+Serial.print(value);
+
+delay(100);
+
+
+if(value <= HlimitOfH && value >= LlimitOfH){
+Serial.print("Hydrogen value: ");
+Serial.print(value);
+}else{
+Serial.print("No");
+ 
+  }
+
+// DS18B20
+ sensor.requestTemperatures();
+ 
+  while (!sensor.isConversionComplete());  // wait until sensor is ready
+ 
+  Serial.print("Temp: ");
+  Serial.println(sensor.getTempC());
+ 
+// soil moisture
+
+
+  if  ((digitalRead(msensor) == HIGH  ) && ( flag == false ) )
+{
+      Serial.println("moisture not present");  
+      flag = true;
+      delay(1);
+}
+ 
+  else if ( (digitalRead(msensor) == LOW  ) && ( flag == true ) )
+{  
+      Serial.println("moisture present");
+      flag = false;
+      delay(1);
+}
+ else {
+  Serial.println("moisture not present");
+ }
+
+}
