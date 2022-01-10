@@ -5,6 +5,8 @@ Planetery Analyzer
 
 •	This was done by observing and monitoring the level of concentration detected from the Soil Moisture sensor and DS18B20 sensor.
  
-The technology and software used here:
-	            Arduino IDE, C++, LabVIEW, 
-              Proteus 8 Professional.
+                
+		The technology and software used here:
+	                 Arduino IDE, C++, LabVIEW, 
+                         Proteus 8 Professional.
+ 
